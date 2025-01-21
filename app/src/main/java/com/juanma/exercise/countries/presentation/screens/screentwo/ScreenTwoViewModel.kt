@@ -3,7 +3,7 @@ package com.juanma.exercise.countries.presentation.screens.screentwo
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.juanma.exercise.countries.data.modelo.ResponseCountryItem
+import com.juanma.exercise.countries.data.networking.model.ResponseApi
 import com.juanma.exercise.countries.domain.model.Response
 import com.juanma.exercise.countries.domain.usecases.UsesCases
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -44,7 +44,7 @@ class ScreenTwoViewModel @Inject constructor(
         }
     }
 
-    fun onList(info: ArrayList<ResponseCountryItem>) {
+    fun onList(info: ArrayList<ResponseApi>) {
         _state.update {
             it.copy(
                 info = info

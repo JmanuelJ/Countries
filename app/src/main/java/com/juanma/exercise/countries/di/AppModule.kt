@@ -1,6 +1,6 @@
 package com.juanma.exercise.countries.di
 
-import com.juanma.exercise.countries.data.remote.ApiService
+import com.juanma.exercise.countries.data.networking.ApiService
 import com.juanma.exercise.countries.data.repository.RepositoryImpl
 import com.juanma.exercise.countries.domain.repository.Repository
 import com.juanma.exercise.countries.domain.usecases.GetAllCountriesUseCase

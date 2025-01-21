@@ -2,7 +2,7 @@ package com.juanma.exercise.countries.presentation.screens.screenone
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.juanma.exercise.countries.data.modelo.ApiResponseItem
+import com.juanma.exercise.countries.data.networking.model.ResponseCountryItem
 import com.juanma.exercise.countries.domain.model.Response
 import com.juanma.exercise.countries.domain.usecases.UsesCases
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -41,7 +41,7 @@ class ScreenOneViewModel @Inject constructor(
         }
     }
 
-    fun onListVideo(countries: ArrayList<ApiResponseItem>) {
+    fun onListVideo(countries: ArrayList<ResponseCountryItem>) {
         _state.update {
             it.copy(
                 countries = countries

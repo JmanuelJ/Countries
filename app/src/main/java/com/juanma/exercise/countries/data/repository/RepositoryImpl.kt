@@ -1,8 +1,8 @@
 package com.juanma.exercise.countries.data.repository
 
-import com.juanma.exercise.countries.data.modelo.ApiResponseItem
-import com.juanma.exercise.countries.data.modelo.ResponseCountryItem
-import com.juanma.exercise.countries.data.remote.ApiService
+import com.juanma.exercise.countries.data.networking.ApiService
+import com.juanma.exercise.countries.data.networking.model.ResponseApi
+import com.juanma.exercise.countries.data.networking.model.ResponseCountryItem
 import com.juanma.exercise.countries.domain.model.Response
 import com.juanma.exercise.countries.domain.repository.Repository
 import javax.inject.Inject
@@ -10,7 +10,7 @@ import javax.inject.Inject
 class RepositoryImpl @Inject constructor(
     private val service: ApiService
 ): Repository{
-    override suspend fun getAllCountries(): Response<ArrayList<ApiResponseItem>> {
+    override suspend fun getAllCountries(): Response<ArrayList<ResponseCountryItem>> {
         return try{
             val response = service.getAllCountries()
             Response.Success(response)
@@ -20,7 +20,7 @@ class RepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getCountry(name: String): Response<ArrayList<ResponseCountryItem>> {
+    override suspend fun getCountry(name: String): Response<ArrayList<ResponseApi>> {
         return try {
             val response = service.getCountry(name)
             Response.Success(response)

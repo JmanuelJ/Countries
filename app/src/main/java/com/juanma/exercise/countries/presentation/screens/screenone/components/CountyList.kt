@@ -9,13 +9,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.juanma.exercise.countries.data.modelo.ApiResponseItem
+import com.juanma.exercise.countries.data.networking.model.ResponseApi
+import com.juanma.exercise.countries.data.networking.model.ResponseCountryItem
 import com.juanma.exercise.countries.presentation.navigation.Screens
 
 @Composable
 fun CountyList(
     modifier: Modifier,
-    list: ArrayList<ApiResponseItem>,
+    list: ArrayList<ResponseCountryItem>,
     value: String,
     navController: NavController
 ) {
@@ -24,12 +25,15 @@ fun CountyList(
     ) {
         items(list.filter {
             it.name.official.contains(value)
-        }){ item ->
+        }) { item ->
             item.apply {
                 ItemCountry(
-                    modifier = Modifier.fillMaxWidth().padding(32.dp).clickable {
-                        navController.navigate(route = Screens.ScreenTwo.passName(item.name.common))
-                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(32.dp)
+                        .clickable {
+                            navController.navigate(route = Screens.ScreenTwo.passName(item.name.common))
+                        },
                     flag = item.flags.png,
                     common = item.name.common,
                     official = item.name.official
