@@ -2,15 +2,16 @@ package com.juanma.exercise.countries.presentation.screens.screenone
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.juanma.exercise.countries.data.networking.model.ResponseCountryItem
-import com.juanma.exercise.countries.domain.model.Response
+import com.juanma.exercise.countries.core.Result
 import com.juanma.exercise.countries.domain.usecases.UsesCases
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,27 +26,49 @@ class ScreenOneViewModel @Inject constructor(
         getAllCountries()
     }
 
-    fun getAllCountries() = viewModelScope.launch {
-        _state.update {
-            it.copy(
-                response = Response.Loading
-            )
-        }
+    private fun getAllCountries() {
+        viewModelScope.launch {
+            _state.update {
+                it.copy(
+                    isLoading = true
+                )
+            }
 
-        val response = usesCases.getAllCountriesUseCase.invoke()
+            try {
+                val response = withContext(Dispatchers.IO){
+                    usesCases.getAllCountriesUseCase()
+                }
 
-        _state.update {
-            it.copy(
-                response = response
-            )
-        }
-    }
+                when(response){
+                    is Result.Error -> {
+                        _state.update {
+                            it.copy(
+                                error = response.errorMessage,
+                            )
+                        }
+                    }
+                    is Result.Success -> {
+                        _state.update {
+                            it.copy(
+                                countries = response.data
+                            )
+                        }
+                    }
+                }
 
-    fun onListVideo(countries: ArrayList<ResponseCountryItem>) {
-        _state.update {
-            it.copy(
-                countries = countries
-            )
+            } catch (e: Exception){
+                _state.update {
+                    it.copy(
+                        error = e.message
+                    )
+                }
+            } finally {
+                _state.update {
+                    it.copy(
+                        isLoading = false
+                    )
+                }
+            }
         }
     }
 

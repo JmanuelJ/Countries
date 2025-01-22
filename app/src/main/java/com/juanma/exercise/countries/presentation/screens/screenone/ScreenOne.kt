@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -16,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.juanma.exercise.countries.domain.model.Response
 import com.juanma.exercise.countries.presentation.components.ProgressBar
 import com.juanma.exercise.countries.presentation.screens.screenone.components.CountyList
 import com.juanma.exercise.countries.presentation.screens.screenone.components.SearchBar
@@ -28,6 +26,15 @@ fun ScreenOne(
     viewModel: ScreenOneViewModel
 ) {
     val state by viewModel.state.collectAsState()
+
+
+    if (state.error != null) {
+        Toast.makeText(LocalContext.current, state.error, Toast.LENGTH_SHORT)
+            .show()
+    }
+    if (state.isLoading){
+        ProgressBar()
+    }
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -44,30 +51,13 @@ fun ScreenOne(
             }
         )
 
-        when (val response = state.response) {
-            is Response.Error -> {
-                Toast.makeText(LocalContext.current, response.errorMessage, Toast.LENGTH_SHORT)
-                    .show()
-            }
-
-            Response.Loading -> {
-                ProgressBar()
-            }
-
-            is Response.Success -> {
-                viewModel.onListVideo(response.data)
-                CountyList(
-                    modifier = Modifier.fillMaxWidth(),
-                    list = state.countries,
-                    value = state.textField,
-                    navController = navController
-                )
-            }
-
-            null -> {
-                Text(text = "No hay conexion a internet o hubo un error")
-            }
+        state.countries?.let {
+            CountyList(
+                modifier = Modifier.fillMaxWidth(),
+                list = it,
+                value = state.textField,
+                navController = navController
+            )
         }
-
     }
 }
