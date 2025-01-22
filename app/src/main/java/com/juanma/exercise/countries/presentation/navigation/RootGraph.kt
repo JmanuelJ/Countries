@@ -34,7 +34,7 @@ fun RootGraph(
         ) {
             val screenTwoViewModel: ScreenTwoViewModel = hiltViewModel()
             it.arguments?.getString("name")?.let {
-                ScreenTwo(navController = navController, viewModel = screenTwoViewModel, name = it)
+                ScreenTwo(navController = navController, viewModel = screenTwoViewModel, nam = it)
             }
         }
     }

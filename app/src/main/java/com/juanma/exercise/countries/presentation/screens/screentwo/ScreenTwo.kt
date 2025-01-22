@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.juanma.exercise.countries.domain.model.Response
 import com.juanma.exercise.countries.presentation.components.ProgressBar
 import com.juanma.exercise.countries.presentation.screens.screentwo.components.ViewCountry
 import com.juanma.exercise.countries.presentation.ui.theme.Black
@@ -26,9 +25,20 @@ import com.juanma.exercise.countries.presentation.ui.theme.Black
 fun ScreenTwo(
     navController: NavController,
     viewModel: ScreenTwoViewModel,
-    name: String
+    nam: String
 ) {
     val state by viewModel.state.collectAsState()
+
+
+
+    if (state.error != null) {
+        Toast.makeText(LocalContext.current, state.error, Toast.LENGTH_SHORT)
+            .show()
+    }
+
+    if (state.isLoading) {
+        ProgressBar()
+    }
 
     Column(
         modifier = Modifier
@@ -43,36 +53,20 @@ fun ScreenTwo(
                 .padding(top = 16.dp)
                 .align(alignment = Alignment.Start)
         )
-        when (val response = state.response) {
-            is Response.Error -> {
-                Toast.makeText(LocalContext.current, response.errorMessage, Toast.LENGTH_SHORT)
-                    .show()
-            }
 
-            Response.Loading -> {
-                ProgressBar()
-            }
-
-            is Response.Success -> {
-                viewModel.onList(response.data)
-                state.info?.get(0)?.let {
-                    ViewCountry(
-                        flag = it.flags.png,
-                        common = it.name.common,
-                        official =it.name.official,
-                        capital = it.capital.toString(),
-                        continent = it.continents.toString(),
-                        coat = if (it.coatOfArms.png == null) "0" else it.coatOfArms.png,
-                        url = it.maps.googleMaps
-                    )
-                }
-            }
-
-            null -> {
+        state.response?.get(0).let {
+            it?.apply {
+                ViewCountry(
+                    flag = flags.png,
+                    common = name.common,
+                    official = name.official,
+                    capital = capital.toString(),
+                    continent = continents.toString(),
+                    coat = if (coatOfArms.png == null) "0" else coatOfArms.png,
+                    url = maps.googleMaps
+                )
             }
         }
-
-        
     }
 }
 
