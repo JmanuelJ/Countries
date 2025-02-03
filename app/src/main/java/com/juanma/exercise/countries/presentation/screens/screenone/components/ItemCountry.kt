@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.juanma.exercise.countries.presentation.components.TextDescription
+import com.juanma.exercise.countries.presentation.common.TextDescription
 
 @Composable
 fun ItemCountry(

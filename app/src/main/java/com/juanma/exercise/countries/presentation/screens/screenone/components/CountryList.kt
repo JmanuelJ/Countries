@@ -31,7 +31,7 @@ fun CountyList(
                         .fillMaxWidth()
                         .padding(32.dp)
                         .clickable {
-                            navController.navigate(route = Screens.ScreenTwo.passName(item.name.common))
+                            //navController.navigate(route = Screens.ScreenTwo.passName(item.name.common))
                         },
                     flag = item.flags.png,
                     common = item.name.common,

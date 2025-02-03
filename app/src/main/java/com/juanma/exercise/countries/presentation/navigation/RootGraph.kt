@@ -28,17 +28,16 @@ fun RootGraph(
 
         composable(
             route = Screens.ScreenTwo.route,
-            arguments = listOf(navArgument("name") {
-                type = NavType.StringType
+            arguments = listOf(navArgument("nameCountry") {
+                defaultValue = ""
             })
         ) {
             val screenTwoViewModel: ScreenTwoViewModel = hiltViewModel()
             it.arguments?.getString("name")?.let {
-                ScreenTwo(navController = navController, viewModel = screenTwoViewModel, nam = it)
+                ScreenTwo(navController = navController, viewModel = screenTwoViewModel, nameCountry = it)
             }
         }
     }
-
 }
 
 

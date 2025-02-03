@@ -19,7 +19,7 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.juanma.exercise.countries.presentation.components.TextDescription
+import com.juanma.exercise.countries.presentation.common.TextDescription
 
 @Composable
 fun ViewCountry(

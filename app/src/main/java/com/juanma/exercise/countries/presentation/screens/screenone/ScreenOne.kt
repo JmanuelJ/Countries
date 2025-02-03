@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.juanma.exercise.countries.presentation.components.ProgressBar
+import com.juanma.exercise.countries.presentation.common.ProgressBar
 import com.juanma.exercise.countries.presentation.screens.screenone.components.CountyList
 import com.juanma.exercise.countries.presentation.screens.screenone.components.SearchBar
 import com.juanma.exercise.countries.presentation.ui.theme.White

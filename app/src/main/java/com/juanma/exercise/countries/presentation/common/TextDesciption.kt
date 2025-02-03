@@ -1,4 +1,4 @@
-package com.juanma.exercise.countries.presentation.components
+package com.juanma.exercise.countries.presentation.common
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

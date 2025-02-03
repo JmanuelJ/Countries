@@ -1,6 +1,5 @@
 package com.juanma.exercise.countries.presentation.screens.screentwo
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -32,8 +31,6 @@ class ScreenTwoViewModel @Inject constructor(
     private fun getInfo() {
 
         viewModelScope.launch {
-
-            name?.let { Log.i("JM", it) }
 
             _state.update {
                 it.copy(

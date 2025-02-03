@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.juanma.exercise.countries.presentation.components.ProgressBar
+import com.juanma.exercise.countries.presentation.common.ProgressBar
 import com.juanma.exercise.countries.presentation.screens.screentwo.components.ViewCountry
 import com.juanma.exercise.countries.presentation.ui.theme.Black
 
@@ -25,11 +25,9 @@ import com.juanma.exercise.countries.presentation.ui.theme.Black
 fun ScreenTwo(
     navController: NavController,
     viewModel: ScreenTwoViewModel,
-    nam: String
+    nameCountry: String
 ) {
     val state by viewModel.state.collectAsState()
-
-
 
     if (state.error != null) {
         Toast.makeText(LocalContext.current, state.error, Toast.LENGTH_SHORT)
@@ -70,11 +68,11 @@ fun ScreenTwo(
     }
 }
 
-
 @Composable
 fun DefaultButton(
     modifier: Modifier,
 ) {
+
     Icon(
         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
         contentDescription = "Back",
