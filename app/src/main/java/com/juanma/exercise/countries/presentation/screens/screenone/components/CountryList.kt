@@ -17,7 +17,7 @@ fun CountyList(
     modifier: Modifier,
     list: ArrayList<ResponseCountryItem>,
     value: String,
-    navController: NavController
+    goToScreenTwo: (String?) -> Unit
 ) {
     LazyColumn(
         modifier = modifier
@@ -31,7 +31,7 @@ fun CountyList(
                         .fillMaxWidth()
                         .padding(32.dp)
                         .clickable {
-                            //navController.navigate(route = Screens.ScreenTwo.passName(item.name.common))
+                            goToScreenTwo(item.name.common)
                         },
                     flag = item.flags.png,
                     common = item.name.common,

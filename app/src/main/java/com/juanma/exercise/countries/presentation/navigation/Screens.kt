@@ -2,5 +2,7 @@ package com.juanma.exercise.countries.presentation.navigation
 
 sealed class Screens(val route: String) {
     data object ScreenOne : Screens("screen_one")
-    data object ScreenTwo : Screens("screen_two/?nameCountry={nameCountry}")
+    data object ScreenTwo : Screens("screen_two/nameCountry?={nameCountry}") {
+        fun passNameCountry(nameCountry: String) = "screen_two/nameCountry?=$nameCountry"
+    }
 }

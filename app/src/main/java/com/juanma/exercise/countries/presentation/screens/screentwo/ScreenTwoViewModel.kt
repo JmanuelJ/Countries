@@ -1,6 +1,5 @@
 package com.juanma.exercise.countries.presentation.screens.screentwo
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.juanma.exercise.countries.core.Result
@@ -17,18 +16,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ScreenTwoViewModel @Inject constructor(
-    private val usesCases: UsesCases,
-    private val savedStateHandle: SavedStateHandle
+    private val usesCases: UsesCases
 ) : ViewModel() {
     private val _state = MutableStateFlow(ScreenTwoState())
     val state: StateFlow<ScreenTwoState> = _state.asStateFlow()
-    private val name = savedStateHandle.get<String>("name")
 
-    init {
-        getInfo()
-    }
-
-    private fun getInfo() {
+    fun getInfo(nameCountry: String?) {
 
         viewModelScope.launch {
 
@@ -39,7 +32,7 @@ class ScreenTwoViewModel @Inject constructor(
             }
 
             try {
-                name?.let {
+                nameCountry?.let {
                     val response = withContext(Dispatchers.IO) {
                         usesCases.getCountryUseCase(it)
                     }

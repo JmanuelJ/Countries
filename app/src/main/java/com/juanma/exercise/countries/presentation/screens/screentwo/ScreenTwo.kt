@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -28,6 +29,13 @@ fun ScreenTwo(
     nameCountry: String
 ) {
     val state by viewModel.state.collectAsState()
+    val context = LocalContext.current
+
+    LaunchedEffect(key1 = true) {
+        viewModel.getInfo(nameCountry = nameCountry)
+        Toast.makeText(context, "hol", Toast.LENGTH_SHORT)
+            .show()
+    }
 
     if (state.error != null) {
         Toast.makeText(LocalContext.current, state.error, Toast.LENGTH_SHORT)

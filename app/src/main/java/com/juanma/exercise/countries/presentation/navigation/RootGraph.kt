@@ -3,7 +3,6 @@ package com.juanma.exercise.countries.presentation.navigation
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
@@ -23,7 +22,12 @@ fun RootGraph(
         route = Graph.ROOT
     ) {
         composable(route = Screens.ScreenOne.route) {
-            ScreenOne(navController = navController, viewModel = screenOneViewModel)
+            ScreenOne(
+                viewModel = screenOneViewModel,
+                goToScreenTwo = {nameCountry ->
+                    navController.navigate(Screens.ScreenTwo.passNameCountry(nameCountry!!))
+                }
+            )
         }
 
         composable(
@@ -31,9 +35,9 @@ fun RootGraph(
             arguments = listOf(navArgument("nameCountry") {
                 defaultValue = ""
             })
-        ) {
+        ) { it ->
             val screenTwoViewModel: ScreenTwoViewModel = hiltViewModel()
-            it.arguments?.getString("name")?.let {
+            it.arguments?.getString("nameCountry")?.let {
                 ScreenTwo(navController = navController, viewModel = screenTwoViewModel, nameCountry = it)
             }
         }
