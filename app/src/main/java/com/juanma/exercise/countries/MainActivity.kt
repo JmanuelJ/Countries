@@ -13,7 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    lateinit var navHostController: NavHostController
+    private lateinit var navHostController: NavHostController
     private val screenOneViewModel by viewModels<ScreenOneViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
