@@ -77,6 +77,8 @@ dependencies {
     kapt(libs.dagger.hilt.compiler)
     //Hilt Navigation
     implementation(libs.androidx.hilt)
+    //logging Interceptor
+    implementation(libs.logging.interceptor)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
